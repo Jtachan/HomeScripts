@@ -1,6 +1,7 @@
 """This script will return the color code of a selected pixel on your screen.
 
 The color is returned in both formats RGB and hexadecimal.
+The script also considers only the primary monitor.
 
 Requires
 --------
@@ -9,7 +10,9 @@ pip install pillow pynput
 Examples
 --------
     ```
-    Click anywhere on the screen to get the pixel color. Press Ctrl+C to stop.
+    Click anywhere on the screen to get the pixel color.
+    Press ESC to stop the program.
+
     Position : (945, 320)
     RGB       : (34, 139, 34)
     Hex       : #228B22
@@ -17,7 +20,7 @@ Examples
 """
 
 from PIL import ImageGrab
-from pynput import mouse
+from pynput import mouse, keyboard
 
 
 def get_pixel_rgb_color(x: int, y: int) -> tuple[int, int, int]:
@@ -30,15 +33,17 @@ def get_pixel_rgb_color(x: int, y: int) -> tuple[int, int, int]:
         These coordinates might be negative depending on which monitor is the
         selected pixel.
     """
-    screenshot = ImageGrab.grab(all_screens=True)
-    bbox = screenshot.getbbox()
-    adj_coords = x - (bbox[0] if bbox else 0), y - (bbox[1] if bbox else 0)
-    return screenshot.getpixel(adj_coords)
+    screenshot = ImageGrab.grab()
+    return screenshot.getpixel((x, y))
 
 
-def on_mouse_click(x: int, y: int, _button: mouse.Button, pressed: bool) -> bool:
+def on_mouse_click(x: int, y: int, _button: mouse.Button, pressed: bool):
     """Callback for the mouse listener."""
     if pressed:
+        if x < 0 or y < 0:
+            print("Pixel is not from the primary monitor")
+            return
+
         rgb = get_pixel_rgb_color(x, y)
         hex_color = f"#{rgb[0]:02X}{rgb[1]:02X}{rgb[2]:02X}"
         print(
@@ -47,11 +52,25 @@ def on_mouse_click(x: int, y: int, _button: mouse.Button, pressed: bool) -> bool
             f"Hex code: {hex_color}"
         )
 
-    # After the first click, the function returns 'False' stopping the thread.
-    return not pressed
-
 
 if __name__ == "__main__":
-    print("Click anywhere on the screen to get the pixel color.")
-    with mouse.Listener(on_click=on_mouse_click) as listener:
-        listener.join()
+
+    def on_keyboard_press(key: keyboard.Key) -> bool:
+        """Function to allow stopping the program if 'ESC' is pressed."""
+        if key == keyboard.Key.esc:
+            mouse_listener.stop()
+            return False
+        return True
+
+    print(
+        "Click anywhere on the screen to get the pixel color.\nPress 'ESC' to stop the program."
+    )
+
+    mouse_listener = mouse.Listener(on_click=on_mouse_click)
+    key_listener = keyboard.Listener(on_press=on_keyboard_press)
+
+    mouse_listener.start()
+    key_listener.start()
+
+    mouse_listener.join()
+    key_listener.join()
