@@ -7,6 +7,14 @@ Requires
 --------
 pip install pillow pynput
 
+Instructions
+------------
+1. Run the script via `python ./py3/pixel_color_picker.py`
+2. Use your mouse to point and left-click on your primary monitor at the color you are interested.
+        After clicking, the color will be displayed via terminal (see the example below).
+3. The program will run indefinitely, allowing you to click as many times as you want to pick the color.
+4. Stop the program by pressing 'ESC'.
+
 Examples
 --------
     ```
