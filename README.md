@@ -10,8 +10,6 @@ The repository presents **standalone scripts**, each one at a folder named as th
 
 - **py3**: Python scripts. Each script presents in their main docstring the instructions to use it as well as the requirements for the script to run.
 - **win**: Windows batch scripts. They can be run as-is, although some might take for granted some assumption.
-
-> Within each folder there is also a 'Readme.md' file with a TOC and clarifying all scripts.
  
 ### Installable utils
 
