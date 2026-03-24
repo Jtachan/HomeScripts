@@ -1,4 +1,4 @@
-"""This script will return the color code of a selected pixel on your screen.
+"""Script that returns the color code of a selected pixel on your screen.
 
 The color is returned in both formats RGB and hexadecimal.
 The script also considers only the primary monitor.
@@ -28,7 +28,7 @@ Examples
 """
 
 from PIL import ImageGrab
-from pynput import mouse, keyboard
+from pynput import keyboard, mouse
 
 
 def get_pixel_rgb_color(x: int, y: int) -> tuple[int, int, int]:

@@ -1,0 +1,28 @@
+[project]
+name = "home-utils"
+authors = [
+    { name = "Jaime Gonzalez Gomez", email = "jgonzg@proton.me" },
+]
+description = "Collection of personal utils to be used in python development."
+requires-python = ">=3.9"
+dependencies = []  # This should always be empty.
+license = { text = "MIT license" }
+dynamic = ["readme", "version"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+Homepage = "http://github/Jtachan/HomeScripts.git"
+Documentation = "https://jtachan.github.io/HomeScripts/"
+
+[build-system]
+requires = ["setuptools>=70.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = { attr = "home_utils._version.__version__" }
+readme = { file = ["README.md"], content-type = "text/markdown" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
