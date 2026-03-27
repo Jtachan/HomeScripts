@@ -1,4 +1,4 @@
-REM This script clears the cache of all ever installed python packages
+:: This script clears the cache of all ever installed python packages
 
 :: Clearing all the cache for pip
 pip cache purge
