@@ -48,13 +48,11 @@ class Timestamp:
         )
 
     def __str__(self) -> str:
-        match self.hours, self.minutes, self.seconds:
-            case 0, 0, _:
+        if self.hours == 0:
+            if self.minutes == 0:
                 return f"{self.seconds}s"
-            case 0, _, _:
-                return f"{self.minutes}min {self.seconds}s"
-            case _:
-                return f"{self.hours}h {self.minutes}min {self.seconds}s"
+            return f"{self.minutes}min {self.seconds}s"
+        return f"{self.hours}h {self.minutes}min {self.seconds}s"
 
     def __add__(self, other: Timestamp | int) -> Timestamp | int:
         if isinstance(other, int):
