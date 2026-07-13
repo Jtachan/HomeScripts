@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61", "wheel", "cython>=3"]
+requires = ["setuptools>=70", "wheel", "cython>=3"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -21,10 +21,6 @@ classifiers = [
 [project.urls]
 Homepage = "http://github/Jtachan/HomeScripts.git"
 Documentation = "https://jtachan.github.io/HomeScripts/"
-
-[build-system]
-requires = ["setuptools>=70.0", "wheel"]
-build-backend = "setuptools.build_meta"
 
 [tool.setuptools.dynamic]
 readme = { file = ["README.md"], content-type = "text/markdown" }
